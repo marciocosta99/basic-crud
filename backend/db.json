@@ -1,0 +1,17 @@
+{
+    "products":[{
+        "id": 1,
+        "name": "Caneta BIC",
+        "price": 3.50
+    },
+    {
+        "id": 2,
+        "name": "Notebook Acer Aspire 5",
+        "price": 4273.89
+    },
+    {
+        "id": 3,
+        "name": "Celular Xiaomi Redmi Note 8",
+        "price": 1350.79
+    }]
+}
