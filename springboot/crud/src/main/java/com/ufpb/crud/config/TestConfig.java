@@ -50,10 +50,13 @@ public class TestConfig implements CommandLineRunner {
         Product p = new Product(null, "Xbox One X", "Console da Microsoft lançado em 2020.", 4300.00, "");
         Product p2 = new Product(null, "Geladeira Brastemp", "Geladeira de 40L.", 3200.00, "");
         
+        p.getCategories().add(c2);
+        p2.getCategories().add(c);
+
         userRepository.saveAll(Arrays.asList(u, u2));
         orderRepository.saveAll(Arrays.asList(o, o2, o3));
         categoryRepository.saveAll(Arrays.asList(c, c2));
-        productRepository.saveAll(Arrays.asList(p, p2));
+        productRepository.saveAll(Arrays.asList(p, p2));  
     }
 
 }
