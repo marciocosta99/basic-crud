@@ -1,16 +1,21 @@
 package com.ufpb.crud.entities;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "tb_products")
-public class Products implements Serializable{
+public class Product implements Serializable{
 
     private static final long serialVersionUID = 1L;
 
@@ -18,19 +23,24 @@ public class Products implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private String brand;
-    private Category category;
+    private String description;
 
+    @Transient
+    private Set<Category> categories = new HashSet<>();
 
-    public Products() {
+    private Double price;
+    private String imgURL;
+
+    public Product() {
         
     }
 
-    public Products(Long id, String name, String brand, Category category) {
+    public Product(Long id, String name, String description, Double price, String imgURL) {
         this.id = id;
         this.name = name;
-        this.brand = brand;
-        this.category = category;
+        this.description = description;
+        this.price = price;
+        this.imgURL = imgURL;
     }
 
     public Long getId() {
@@ -49,20 +59,32 @@ public class Products implements Serializable{
         this.name = name;
     }
 
-    public String getBrand() {
-        return brand;
+    public String getDescription() {
+        return description;
     }
 
-    public void setBrand(String brand) {
-        this.brand = brand;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public Category getCategory() {
-        return category;
+    public Set<Category> getCategories() {
+        return categories;
     }
 
-    public void setCategory(Category category) {
-        this.category = category;
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    public String getImgURL() {
+        return imgURL;
+    }
+
+    public void setImgURL(String imgURL) {
+        this.imgURL = imgURL;
     }
 
     @Override
@@ -81,7 +103,7 @@ public class Products implements Serializable{
             return false;
         if (getClass() != obj.getClass())
             return false;
-        Products other = (Products) obj;
+        Product other = (Product) obj;
         if (id == null) {
             if (other.id != null)
                 return false;

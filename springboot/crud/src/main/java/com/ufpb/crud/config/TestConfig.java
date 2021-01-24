@@ -7,6 +7,7 @@ import com.ufpb.crud.entities.*;
 import com.ufpb.crud.entities.enums.OrderStatus;
 import com.ufpb.crud.repositories.CategoryRepository;
 import com.ufpb.crud.repositories.OrderRepository;
+import com.ufpb.crud.repositories.ProductRepository;
 import com.ufpb.crud.repositories.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,9 @@ public class TestConfig implements CommandLineRunner {
     @Autowired
     private CategoryRepository categoryRepository;
 
+    @Autowired
+    private ProductRepository productRepository;
+
     @Override
     public void run(String... args) throws Exception {
         instanceOnDB();
@@ -42,10 +46,14 @@ public class TestConfig implements CommandLineRunner {
 
         Category c = new Category(null, "Eletrodoméstico");
         Category c2 = new Category(null, "Videogame");
+
+        Product p = new Product(null, "Xbox One X", "Console da Microsoft lançado em 2020.", 4300.00, "");
+        Product p2 = new Product(null, "Geladeira Brastemp", "Geladeira de 40L.", 3200.00, "");
         
         userRepository.saveAll(Arrays.asList(u, u2));
         orderRepository.saveAll(Arrays.asList(o, o2, o3));
         categoryRepository.saveAll(Arrays.asList(c, c2));
+        productRepository.saveAll(Arrays.asList(p, p2));
     }
 
 }
