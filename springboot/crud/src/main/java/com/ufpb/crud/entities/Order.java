@@ -12,6 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.ufpb.crud.entities.enums.OrderStatus;
 
 @Entity
 @Table(name = "tb_orders")
@@ -25,6 +26,8 @@ public class Order implements Serializable {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
     private Instant date; //tipo Instant para instanciar datas
 
+    private Integer orderStatus;
+   
     @ManyToOne //indica no BD a relação de muitos para um
     @JoinColumn(name = "client_id") //indica qual a chave estrangeira será setada na tabela
     private User client;
@@ -32,9 +35,10 @@ public class Order implements Serializable {
     public Order() {
     }
 
-    public Order(Long id, Instant date, User client) {
+    public Order(Long id, Instant date, OrderStatus orderStatus, User client) {
         this.id = id;
         this.date = date;
+        setOrderStatus(orderStatus);
         this.client = client;
     }
 
@@ -60,6 +64,16 @@ public class Order implements Serializable {
 
     public void setClient(User client) {
         this.client = client;
+    }
+
+    public OrderStatus getOrderStatus() {
+        return OrderStatus.valueOf(orderStatus);
+    }
+
+    public void setOrderStatus(OrderStatus orderStatus) {
+        if(orderStatus != null){
+            this.orderStatus = orderStatus.getCode();
+        }
     }
 
     @Override
