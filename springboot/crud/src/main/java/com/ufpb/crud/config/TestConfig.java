@@ -6,6 +6,7 @@ import java.util.Arrays;
 import com.ufpb.crud.entities.*;
 import com.ufpb.crud.entities.enums.OrderStatus;
 import com.ufpb.crud.repositories.CategoryRepository;
+import com.ufpb.crud.repositories.OrderItemRepository;
 import com.ufpb.crud.repositories.OrderRepository;
 import com.ufpb.crud.repositories.ProductRepository;
 import com.ufpb.crud.repositories.UserRepository;
@@ -31,6 +32,9 @@ public class TestConfig implements CommandLineRunner {
     @Autowired
     private ProductRepository productRepository;
 
+    @Autowired
+    private OrderItemRepository orderItemRepository;
+
     @Override
     public void run(String... args) throws Exception {
         instanceOnDB();
@@ -53,10 +57,14 @@ public class TestConfig implements CommandLineRunner {
         p.getCategories().add(c2);
         p2.getCategories().add(c);
 
+        OrderItem oi = new OrderItem(o, p, 5, p.getPrice());
+        OrderItem oi2 = new OrderItem(o2, p2, 5, p2.getPrice());
+
         userRepository.saveAll(Arrays.asList(u, u2));
         orderRepository.saveAll(Arrays.asList(o, o2, o3));
         categoryRepository.saveAll(Arrays.asList(c, c2));
         productRepository.saveAll(Arrays.asList(p, p2));  
+        orderItemRepository.saveAll(Arrays.asList(oi, oi2));
     }
 
 }
